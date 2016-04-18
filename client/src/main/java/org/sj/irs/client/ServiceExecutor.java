@@ -1,9 +1,9 @@
-package com.harb.sj.irs.client;
+package org.sj.irs.client;
 
-import com.harb.sj.irs.client.manifest.ManifestProcessor;
-import com.harb.sj.irs.client.status.IrsRequestStatusClient;
-import com.harb.sj.irs.client.submit.DataFileInfo;
-import com.harb.sj.irs.client.submit.IrsTransmitterClient;
+import org.sj.irs.client.manifest.ManifestProcessor;
+import org.sj.irs.client.status.IrsRequestStatusClient;
+import org.sj.irs.client.submit.DataFileInfo;
+import org.sj.irs.client.submit.IrsTransmitterClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

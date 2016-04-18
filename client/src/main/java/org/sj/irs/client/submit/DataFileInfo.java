@@ -1,4 +1,4 @@
-package com.harb.sj.irs.client.submit;
+package org.sj.irs.client.submit;
 
 /**
  * Model to represent Data file (1094/1095)

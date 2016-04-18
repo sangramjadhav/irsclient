@@ -1,8 +1,8 @@
-package com.harb.sj.irs.client;
+package org.sj.irs.client;
 
-import com.harb.sj.irs.client.status.IrsRequestStatusClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.sj.irs.client.status.IrsRequestStatusClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;

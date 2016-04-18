@@ -1,9 +1,9 @@
-package com.harb.sj.irs.client.intercept;
+package org.sj.irs.client.intercept;
 
-import com.harb.sj.irs.client.config.KeyStoreConfig;
+import org.sj.irs.client.config.KeyStoreConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import us.gov.treasury.irs.msg.irstransmitterstatusrequest.ACABulkRequestTransmitterStatusDetailRequest;
+import us.gov.treasury.irs.ext.aca.air._7.ACATransmitterManifestReqDtl;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
@@ -15,26 +15,33 @@ import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 import java.util.Set;
 
-public class StatusInterceptor implements SOAPHandler<SOAPMessageContext> {
-    private static final Logger LOG = LoggerFactory.getLogger(StatusInterceptor.class);
 
+/**
+ * Submission interceptor for adding WS Security and other headers
+ */
+public class SubmissionInterceptor implements SOAPHandler<SOAPMessageContext> {
+    private static final Logger LOG = LoggerFactory.getLogger(SubmissionInterceptor.class);
+
+    private ACATransmitterManifestReqDtl aCATransmitterManifestReqDtl;
     private KeyStoreConfig keyStoreConfig;
-    private ACABulkRequestTransmitterStatusDetailRequest aCABulkRequestTransmitterStatusDetailRequest;
     private String transmitterControlCode;
 
-    public StatusInterceptor() {}
+    public SubmissionInterceptor() {
 
-    public StatusInterceptor(KeyStoreConfig keyStoreConfig, String transmitterControlCode,
-                             ACABulkRequestTransmitterStatusDetailRequest aCABulkRequestTransmitterStatusDetailRequest) {
+    }
+
+    public SubmissionInterceptor(ACATransmitterManifestReqDtl aCATransmitterManifestReqDtl,
+                                 KeyStoreConfig keyStoreConfig,
+                                 String transmitterControlCode) {
+        this.aCATransmitterManifestReqDtl = aCATransmitterManifestReqDtl;
         this.keyStoreConfig = keyStoreConfig;
         this.transmitterControlCode = transmitterControlCode;
-        this.aCABulkRequestTransmitterStatusDetailRequest = aCABulkRequestTransmitterStatusDetailRequest;
     }
 
     public boolean handleMessage(SOAPMessageContext smc) {
-        Boolean outboundProperty = (Boolean) smc.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-        if (outboundProperty) {
-            // intercept only outbound message
+        Boolean isOutgoing = (Boolean) smc.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+        if (isOutgoing) {
+            // intercept only outgoing message
             SOAPMessage message = smc.getMessage();
             try {
                 SOAPEnvelope envelope = smc.getMessage().getSOAPPart().getEnvelope();
@@ -42,26 +49,27 @@ public class StatusInterceptor implements SOAPHandler<SOAPMessageContext> {
                 envelope.addNamespaceDeclaration("urn1", "urn:us:gov:treasury:irs:common");
                 envelope.addNamespaceDeclaration("oas1",
                         "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
+
                 SOAPHeader header = envelope.getHeader();
 
                 XMLGregorianCalendar xmlNow = InterceptorUtils.getTimeNowAsXMLGregorianCalendar();
-                InterceptorUtils.buildAcaBusinessHeaderForStatus(header, xmlNow, transmitterControlCode);
-                InterceptorUtils.constructActionHeader(header, aCABulkRequestTransmitterStatusDetailRequest);
-                InterceptorUtils.createWSSecurityHeaders(message, keyStoreConfig, aCABulkRequestTransmitterStatusDetailRequest.getClass());
+                header.addChildElement(InterceptorUtils.getSOAPElementFromBindingObject(aCATransmitterManifestReqDtl));
+                InterceptorUtils.buildAcaBusinessHeaderForSubmission(header, xmlNow, transmitterControlCode);
+                InterceptorUtils.constructActionHeader(header, aCATransmitterManifestReqDtl);
+                InterceptorUtils.createWSSecurityHeaders(message, keyStoreConfig, aCATransmitterManifestReqDtl.getClass());
                 InterceptorUtils.logSOAPMessage(message);
             } catch (Exception e) {
-                LOG.error("Error occurred: ", e);
+                LOG.error("Error: " + e.getMessage(), e);
             }
         } else {
             try {
                 SOAPMessage message = smc.getMessage();
                 InterceptorUtils.logSOAPMessage(message);
             } catch (Exception ex) {
-                LOG.error("Error:", ex);
+                LOG.error("Error occurred", ex);
             }
         }
-
-        return outboundProperty;
+        return isOutgoing;
     }
 
     public Set<QName> getHeaders() {

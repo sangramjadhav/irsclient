@@ -1,6 +1,5 @@
-package com.harb.sj.irs.client.intercept;
+package org.sj.irs.client.intercept;
 
-import com.harb.sj.irs.client.config.KeyStoreConfig;
 import org.apache.wss4j.common.WSEncryptionPart;
 import org.apache.wss4j.common.crypto.Crypto;
 import org.apache.wss4j.common.crypto.CryptoFactory;
@@ -12,6 +11,7 @@ import org.apache.wss4j.dom.engine.WSSConfig;
 import org.apache.wss4j.dom.message.WSSecHeader;
 import org.apache.wss4j.dom.message.WSSecSignature;
 import org.apache.wss4j.dom.message.WSSecTimestamp;
+import org.sj.irs.client.config.KeyStoreConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;

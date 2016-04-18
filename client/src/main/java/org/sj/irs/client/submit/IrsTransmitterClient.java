@@ -1,12 +1,12 @@
-package com.harb.sj.irs.client.submit;
+package org.sj.irs.client.submit;
 
-import com.harb.sj.irs.client.config.ApplicationConfig;
-import com.harb.sj.irs.client.config.KeyStoreConfig;
-import com.harb.sj.irs.client.intercept.SubmissionInterceptor;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.common.gzip.GZIPOutInterceptor;
+import org.sj.irs.client.config.ApplicationConfig;
+import org.sj.irs.client.config.KeyStoreConfig;
+import org.sj.irs.client.intercept.SubmissionInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

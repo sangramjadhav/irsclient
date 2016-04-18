@@ -1,4 +1,4 @@
-package com.harb.sj.irs.client.submit;
+package org.sj.irs.client.submit;
 
 import javax.activation.DataSource;
 import java.io.IOException;

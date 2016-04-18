@@ -1,4 +1,4 @@
-package com.harb.sj.irs.client.config;
+package org.sj.irs.client.config;
 
 /**
  * Application wide configuration

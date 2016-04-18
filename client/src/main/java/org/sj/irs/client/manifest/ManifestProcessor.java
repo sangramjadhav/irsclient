@@ -1,4 +1,4 @@
-package com.harb.sj.irs.client.manifest;
+package org.sj.irs.client.manifest;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
