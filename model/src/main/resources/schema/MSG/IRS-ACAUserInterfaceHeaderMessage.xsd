@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 sp1 (http://www.altova.com) by ﻿IRS 
+	(IRS) -->
+<xsd:schema xmlns="urn:us:gov:treasury:irs:msg:acauibusinessheader"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:acabushdr="urn:us:gov:treasury:irs:msg:acabusinessheader"
+			xmlns:air7.0="urn:us:gov:treasury:irs:ext:aca:air:7.0"
+			targetNamespace="urn:us:gov:treasury:irs:msg:acauibusinessheader"
+			elementFormDefault="qualified" attributeFormDefault="unqualified"
+			version="1.1">
+	<xsd:annotation>
+		<xsd:documentation>
+			<Component>
+				<DictionaryEntryNm>HHS IRS Message - ACA (Affordable Care Act) User
+					Interface Business Header</DictionaryEntryNm>
+				<MajorVersionNum>2</MajorVersionNum>
+				<MinorVersionNum>0</MinorVersionNum>
+				<VersionEffectiveBeginDt>2015-04-14</VersionEffectiveBeginDt>
+				<VersionDescriptionTxt>Removed root type definitions and added the
+					reference to the root element declarations</VersionDescriptionTxt>
+				<DescriptionTxt>Message for the User Interface for obtaining
+					information used for the ACA Business header</DescriptionTxt>
+			</Component>
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="urn:us:gov:treasury:irs:ext:aca:air:7.0"
+		schemaLocation="../EXT/IRS-EXT-ACA-AIR-7.0.xsd" />
+	<xsd:import namespace="urn:us:gov:treasury:irs:msg:acabusinessheader"
+		schemaLocation="IRS-ACABusinessHeaderMessage.xsd" />
+	<!-- ================================== -->
+	<!-- ===== Root Element Declarations ===== -->
+	<!-- ================================== -->
+	<xsd:element name="ACAUIBusinessHeader" type="TransmitterACAUIBusinessHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>ACA (Affordable Care Act) User Interface
+						Business Header Detail Type</DictionaryEntryNm>
+					<MajorVersionNum>2</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2015-04-14</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message pay load for the UI service that obtains
+						information for the ACA business header detail</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- ======================== -->
+	<!-- === Type Defintions ==== -->
+	<!-- ======================== -->
+	<xsd:complexType name="TransmitterACAUIBusinessHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Transmitter User Interface Business Header
+						Request Type</DictionaryEntryNm>
+					<MajorVersionNum>2</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2015-04-14</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial Version</VersionDescriptionTxt>
+					<DescriptionTxt>Transmitter User Interface Business Header detail
+						type for 1094-1095B/C Forms Upstream</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="acabushdr:ACABusinessHeader" />
+			<xsd:element ref="air7.0:ACATransmitterManifestReqDtl" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

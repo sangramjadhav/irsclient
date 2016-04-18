@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="urn:us:gov:treasury:irs:msg:form1094-1095Ctransmitterupstreammessage"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:air7.0="urn:us:gov:treasury:irs:ext:aca:air:7.0"
+			targetNamespace="urn:us:gov:treasury:irs:msg:form1094-1095Ctransmitterupstreammessage"
+			elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:annotation>
+		<xsd:appinfo>
+			<release>ACA Release 6.2</release>
+		</xsd:appinfo>
+		<xsd:documentation>Form-1094C (Issuer) Transmittal and Form 1095C - Transmittal of Health Insurance Coverage Statements
+			<VersionNum>5.2</VersionNum>
+			<VersionEffectiveBeginDt>2015-01-06</VersionEffectiveBeginDt>
+		</xsd:documentation>
+	</xsd:annotation>
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="urn:us:gov:treasury:irs:common" schemaLocation="../COMMON/IRS-CAC.xsd"/>
+	<xsd:import namespace="urn:us:gov:treasury:irs:ext:aca:air:7.0" schemaLocation="../EXT/IRS-EXT-ACA-AIR-7.0.xsd"/>
+	<!-- ================================ -->
+	<!-- ===== Root Element Declarations ===== -->
+	<!-- ================================ -->
+	<xsd:element name="Form109495CTransmittalUpstream" type="Form109495CTransmittalUpstreamType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Form109495C Transmission Upstream</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>1</MinorVersionNum>
+					<VersionEffectiveBeginDt>2015-01-06</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial Version</VersionDescriptionTxt>
+					<DescriptionTxt>The elements associated with 1094C data generated EOY report</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- ======================== -->
+	<!-- ===== Type Defintions ===== -->
+	<!-- ======================== -->
+	<!-- Transmittal(Issuer) of Health Insurance Coverage Statements. -->
+	<xsd:complexType name="Form109495CTransmittalUpstreamType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Form109495C Transmission Upstream Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>1</MinorVersionNum>
+					<VersionEffectiveBeginDt>2014-11-05</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial Version</VersionDescriptionTxt>
+					<DescriptionTxt>Transmission type for 1094C forms upstream data generated EOY report</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="air7.0:Form1094CUpstreamDetail" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

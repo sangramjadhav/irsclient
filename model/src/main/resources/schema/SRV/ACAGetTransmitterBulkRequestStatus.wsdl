@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+		xmlns:irsMSG="urn:us:gov:treasury:irs:msg:irstransmitterstatusrequest"
+		xmlns:irs="urn:us:gov:treasury:irs:common"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns="urn:us:gov:treasury:irs:srv:acabulkrequesttransmitterstatus"
+		xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+		xmlns:irsSEC="urn:us:gov:treasury:irs:msg:acasecurityheader"
+		targetNamespace="urn:us:gov:treasury:irs:srv:acabulkrequesttransmitterstatus">
+	<wsdl:documentation>
+		<WSDLComponent>
+			<DescriptionAndSemantics> This service will accept Transmitter Bulk Submission
+				Status Requests </DescriptionAndSemantics>
+			<Provider>Example Provider</Provider>
+			<EndPointInformation />
+			<ChannelsSupported />
+			<Operator />
+			<AvailabilityInformation />
+			<CapacityInformation />
+			<PolicyGuardImplementation />
+			<AccessControl />
+			<Dependency />
+			<ChargeBackInformation />
+			<ProvisioningInformation />
+			<Consumers>Example Consumer</Consumers>
+		</WSDLComponent>
+		<Component>
+			<DictionaryEntryNm>Get ACA 7.0 Bulk Submission Status Request</DictionaryEntryNm>
+			<MajorVersionNum>1</MajorVersionNum>
+			<MinorVersionNum>0</MinorVersionNum>
+			<VersionEffectiveBeginDt>2012-10-15</VersionEffectiveBeginDt>
+			<VersionDescriptionTxt>initial version</VersionDescriptionTxt>
+			<DescriptionTxt>WSDL Definition: This service will accept a ACA 7.0
+				Transmitter Bulk Submission Status request.</DescriptionTxt>
+		</Component>
+	</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import	namespace="urn:us:gov:treasury:irs:msg:irstransmitterstatusrequest"	schemaLocation="../MSG/IRS-ACABulkRequestTransmitterStatusDetailMessage.xsd" />
+			<xsd:import namespace="urn:us:gov:treasury:irs:msg:acasecurityheader" schemaLocation="../MSG/IRS-ACASecurtiyHeaderMessage.xsd"/>
+			<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="../MSG/IRS-WSSecurityElementMessage.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="Fault">
+		<wsdl:part name="fault" element="irs:ErrorMessageDetail" />
+	</wsdl:message>
+	<wsdl:message name="ACABusinessHeader">
+		<wsdl:part name="ACABusinessHeader" element="irsMSG:ACABusinessHeader"/>
+	</wsdl:message>
+	<wsdl:message name="ACATransmitterStatusReqBody">
+		<wsdl:part name="ACATransmitterStatusReqBody" element="irsMSG:ACABulkRequestTransmitterStatusDetailRequest" />
+	</wsdl:message>
+	<wsdl:message name="ACATransmitterStatusRespBody">
+		<wsdl:part name="ACATransmitterStatusRespBody" element="irsMSG:ACABulkRequestTransmitterStatusDetailResponse" />
+	</wsdl:message>
+	
+	<wsdl:message name="ACASecurityHeader">
+        <wsdl:part name="ACASecurityHeader" element="irsSEC:ACASecurityHeader" />
+    </wsdl:message> 
+	<wsdl:message name="WSSESecurity">
+		<wsdl:part name="WSSESecurity" element="wsse:Security"/>
+	</wsdl:message>
+
+	<wsdl:portType name="ACATransmitterStatusReqPortType">
+		<wsdl:operation
+			name="GetACATransmitterStatusReqOperation">
+			<wsdl:input	message="ACATransmitterStatusReqBody" />
+			<wsdl:output message="ACATransmitterStatusRespBody" />
+			<wsdl:fault name="fault"
+				message="Fault" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="GetACATransmitterStatusReqBinding"
+		type="ACATransmitterStatusReqPortType">
+		<soapbind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetACATransmitterStatusReqOperation">
+			<soapbind:operation soapAction="RequestSubmissionStatusDetail" />		
+			<wsdl:input>
+				<soapbind:header message="ACASecurityHeader" part="ACASecurityHeader" use="literal"/> 
+				<soapbind:header message="WSSESecurity" part="WSSESecurity" use="literal"/>		
+				<soapbind:header
+					message="ACABusinessHeader"
+					part="ACABusinessHeader" use="literal" />
+				<soapbind:body parts="ACATransmitterStatusReqBody" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soapbind:header
+					message="ACABusinessHeader"
+					part="ACABusinessHeader" use="literal" />
+				<soapbind:body parts="ACATransmitterStatusRespBody" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soapbind:fault name="fault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GetACATransmitterStatusReqService">
+		<wsdl:port name="ACATransmitterStatusReqPort" binding="GetACATransmitterStatusReqBinding">
+			<soapbind:address location="https://la.www4.irs.gov/airp/aca/a2a/1095BC_Status_Request_AATS2016" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="urn:us:gov:treasury:irs:msg:acasecurityheader" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:us:gov:treasury:irs:msg:acasecurityheader"
+			xmlns:irs="urn:us:gov:treasury:irs:common"
+			elementFormDefault="qualified"
+			attributeFormDefault="unqualified" version="1.1">
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="urn:us:gov:treasury:irs:common" schemaLocation="../COMMON/IRS-CAC.xsd"/>
+	<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="../MSG/IRS-WSSecurityElementMessage.xsd"/>
+	<!-- ================================== -->
+	<!-- ===== Root Element Declarations ===== -->
+	<!-- ================================== -->
+	<xsd:element name="ACASecurityHeader" type="TransmitterACASecurityHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>ACA (Affordable Care Act) Security Header Detail Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2015-03-08</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service that obtains information for the ACA Security header detail</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- ======================== -->
+	<!-- ===== Type Defintions ===== -->
+	<!-- ======================== -->
+	<xsd:complexType name="TransmitterACASecurityHeaderType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>Transmitter Security Header Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>1</MinorVersionNum>
+					<VersionEffectiveBeginDt>2014-11-04</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial Version</VersionDescriptionTxt>
+					<DescriptionTxt>Transmitter Security Header for 1094-1095B/C Forms Upstream</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice>     
+			<!-- <xsd:element ref="wsse:Security"/>  -->
+       		<xsd:element ref="irs:UserId" minOccurs="0"/> 	
+     	</xsd:choice>
+	</xsd:complexType>
+	<!-- ============================== -->
+	<!-- ===== Root Type Defintions ===== -->
+	<!-- =============================== -->
+</xsd:schema>
+
+ 

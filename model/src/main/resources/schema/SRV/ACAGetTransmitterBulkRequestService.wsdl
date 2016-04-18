@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/"
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+				  xmlns:irs="urn:us:gov:treasury:irs:common"
+				  xmlns:irsHDR="urn:us:gov:treasury:irs:msg:acabusinessheader"
+				  xmlns:irsSEC="urn:us:gov:treasury:irs:msg:acasecurityheader"
+				  xmlns:irsMSG="urn:us:gov:treasury:irs:msg:irsacabulkrequesttransmitter"
+				  xmlns:irsTPD="urn:us:gov:treasury:irs:ext:aca:air:7.0"
+				  xmlns="urn:us:gov:treasury:irs:srv:gettransmitterbulkrequest"
+				  xmlns:wsp="http://www.w3.org/ns/ws-policy"
+				  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+				  xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+				  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="ACAGetTransmitterBulkRequestService-1.0"
+				  targetNamespace="urn:us:gov:treasury:irs:srv:gettransmitterbulkrequest">
+	<wsdl:documentation>
+		<WSDLComponent>
+			<DescriptionAndSemantics>This service will accept a transmitter bulk
+				request </DescriptionAndSemantics>
+			<Provider>Example Provider</Provider>
+			<EndPointInformation/>
+			<ChannelsSupported/>
+			<Operator/>
+			<AvailabilityInformation/>
+			<CapacityInformation/>
+			<PolicyGuardImplementation/>
+			<AccessControl/>
+			<Dependency/>
+			<ChargeBackInformation/>
+			<ProvisioningInformation/>
+			<Consumers>Example Consumer</Consumers>
+		</WSDLComponent>
+		<Component>
+			<DictionaryEntryNm>Get Third Party Bulk Request</DictionaryEntryNm>
+			<VersionNum>1.0</VersionNum>
+			<VersionEffectiveBeginDt>2015-01-06</VersionEffectiveBeginDt>
+			<VersionDescriptionTxt>initial version: ACA transmitter XML LIBRARY
+				8.2 as of 2014-07-14</VersionDescriptionTxt>
+			<DescriptionTxt>WSDL Definition: This service will accept a
+				transmitter bulk request.</DescriptionTxt>
+		</Component>
+	</wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="urn:us:gov:treasury:irs:msg:irsacabulkrequesttransmitter" schemaLocation="../MSG/IRS-ACABulkRequestTransmitterMessage.xsd"/>
+			<xsd:import namespace="urn:us:gov:treasury:irs:msg:acabusinessheader" schemaLocation="../MSG/IRS-ACABusinessHeaderMessage.xsd"/>
+			<xsd:import namespace="urn:us:gov:treasury:irs:msg:acasecurityheader" schemaLocation="../MSG/IRS-ACASecurtiyHeaderMessage.xsd"/>
+			<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="../MSG/IRS-WSSecurityElementMessage.xsd"/>
+			<xsd:import namespace="urn:us:gov:treasury:irs:ext:aca:air:7.0" schemaLocation="../EXT/IRS-EXT-ACA-AIR-7.0.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="Fault">
+		<wsdl:part name="fault" element="irs:ErrorMessageDetail"/>
+	</wsdl:message>
+	<wsdl:message name="BulkRequestTransmitter">
+		<wsdl:part name="BulkRequestTransmitter" element="irsMSG:ACABulkRequestTransmitter"/>
+	</wsdl:message>
+	<wsdl:message name="BulkRequestTransmitterResponse">
+		<wsdl:part name="BulkRequestTransmitterResponse" element="irsMSG:ACABulkRequestTransmitterResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ACABusinessHeader">
+		<wsdl:part name="ACABusinessHeader" element="irsHDR:ACABusinessHeader"/>
+	</wsdl:message>
+	<wsdl:message name="ACASecurityHeader">
+		<wsdl:part name="ACASecurityHeader" element="irsSEC:ACASecurityHeader"/>
+	</wsdl:message>
+	<wsdl:message name="WSSESecurity">
+		<wsdl:part name="WSSESecurity" element="wsse:Security"/>
+	</wsdl:message>
+	<wsdl:message name="ACATransmitterManifestReqDtl">
+		<wsdl:part name="ACATransmitterManifestReqDtl" element="irsTPD:ACATransmitterManifestReqDtl"/>
+	</wsdl:message>
+	<wsdl:portType name="BulkRequestTransmitterPortType">
+		<wsdl:operation name="BulkRequestTransmitter">
+			<wsdl:input message="BulkRequestTransmitter"/>
+			<wsdl:output message="BulkRequestTransmitterResponse"/>
+			<wsdl:fault name="fault" message="Fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BulkRequestTransmitterBinding" type="BulkRequestTransmitterPortType">
+		<soapbind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#Addressing"/>
+		<wsdl:operation name="BulkRequestTransmitter">
+			<soapbind:operation soapAction="BulkRequestTransmitter"/>
+			<wsdl:input>
+				<soapbind:header message="ACASecurityHeader" part="ACASecurityHeader" use="literal"/>
+				<soapbind:header message="WSSESecurity" part="WSSESecurity" use="literal"/>
+				<soapbind:header message="ACABusinessHeader" part="ACABusinessHeader" use="literal"/>
+				<soapbind:header message="ACATransmitterManifestReqDtl" part="ACATransmitterManifestReqDtl" use="literal"/>
+				<soapbind:body parts="BulkRequestTransmitter" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soapbind:header message="ACABusinessHeader" part="ACABusinessHeader" use="literal"/>
+				<soapbind:body parts="BulkRequestTransmitterResponse" use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soapbind:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BulkRequestTransmitterService">
+		<wsdl:port name="BulkRequestTransmitterPort" binding="BulkRequestTransmitterBinding">
+			<soapbind:address location="https://la.www4.irs.gov/airp/aca/a2a/1095BC_Transmission_AATS2016"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsp:Policy wsu:Id="Addressing" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<wsaw:UsingAddressing wsdl:required="true" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+</wsdl:definitions>

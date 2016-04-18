@@ -1,0 +1,32 @@
+# Most of Keystore properties can be determined using OpenSSL or keystore (java) command
+keystore:
+  # Path to certificate store. If you don't know what is this, please read ACA guide.
+  path:
+  # Type of KeyStore e.g. JKS for .jks file, PKCS12 for .p12 file
+  type:
+  password:
+  # Now this is important. Determine your certificate index in certificate change available in certificate store. Ours is at 0th position. Yours may be at last position
+  certificate-index: 0
+  private-key:
+    password:
+    # Private Key alias
+    alias:
+
+webservice:
+  bulk:
+    url: "https://la.www4.irs.gov/airp/aca/a2a/1095BC_Transmission_AATS2016"
+    properties:
+      schema-validation-enabled: true
+      mtom-enabled: true
+
+  status:
+    url:  "https://la.www4.irs.gov/airp/aca/a2a/1095BC_Status_Request_AATS2016"
+    properties:
+      schema-validation-enabled: true
+
+config:
+  # Put your TCC ID here
+  tcc-id:
+
+logging:
+  file: irsclient.log

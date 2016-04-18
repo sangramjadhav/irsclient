@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.3.RELEASE</version>
+        <relativePath/>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.sj.irs</groupId>
+    <artifactId>irsclient</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>IRS Client</name>
+
+    <packaging>pom</packaging>
+    <description></description>
+
+    <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cxf.version>3.1.6</cxf.version>
+        <cxf.codegen.plugin.version>3.1.6</cxf.codegen.plugin.version>
+        <cxf.xjc-utils.version>3.0.5</cxf.xjc-utils.version>
+        <jaxb2.basics.version>0.11.0</jaxb2.basics.version>
+        <jaxb2_commons.version>0.4.1.5</jaxb2_commons.version>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <modules>
+        <module>model</module>
+        <module>client</module>
+    </modules>
+</project>

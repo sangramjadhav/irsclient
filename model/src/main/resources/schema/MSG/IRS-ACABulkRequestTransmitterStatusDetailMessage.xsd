@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 sp1 (http://www.altova.com) by ﻿IRS (IRS) -->
+<xsd:schema
+		xmlns="urn:us:gov:treasury:irs:msg:irstransmitterstatusrequest"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:air7.0="urn:us:gov:treasury:irs:ext:aca:air:7.0"
+		xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+		targetNamespace="urn:us:gov:treasury:irs:msg:irstransmitterstatusrequest"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified"
+		version="1.0">
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="urn:us:gov:treasury:irs:ext:aca:air:7.0" schemaLocation="../EXT/IRS-EXT-ACA-AIR-7.0.xsd"/>
+	<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 	schemaLocation="../MSG/IRS-WSTimeStampElementMessage.xsd" />
+	<!-- ================================ -->
+	<!-- ====== Root Element Declarations ====== -->
+	<!-- ================================ -->
+	<xsd:element name="ACABulkRequestTransmitterStatusDetailRequest" type="ACABulkRequestTransmitterStatusDetailRequestType"/>
+	<xsd:element name="ACABulkRequestTransmitterStatusDetailResponse" type="ACABulkRequestTransmitterStatusDetailResponseType"/>
+	<!-- ======================== -->
+	<!-- ====== Type Defintions ====== -->
+	<!-- ======================== -->
+	<xsd:complexType name="ACABulkRequestTransmitterStatusDetailRequestType">
+		<xsd:sequence>
+			<!-- <xsd:element ref="air6.2:ACABulkRequestTransmitterResponse"/>-->
+			<xsd:element ref="air7.0:ACABulkReqTrnsmtStsReqGrpDtl"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:string" fixed="1.0"/>
+		<xsd:attributeGroup ref="wsu:commonAtts" />
+	</xsd:complexType>
+	<xsd:complexType name="ACABulkRequestTransmitterStatusDetailResponseType">
+		<xsd:sequence>
+			<xsd:element ref="air7.0:ACABulkRequestTransmitterResponse"/>
+			<!-- Ahh. This is non standard. IRS is not sending this element for ACCEPTED response. Added minOccurs for optional -->
+			<xsd:element ref="air7.0:ACABulkReqTrnsmtStsRespGrpDtl" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:string" fixed="1.0"/>
+	</xsd:complexType>
+	<!-- ================================== -->
+	<!-- ===== Root Element Declarations ===== -->
+	<!-- ================================== -->
+	<xsd:element name="ACABusinessHeader" type="air7.0:ACABulkBusinessHeaderRequestType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<Component>
+					<DictionaryEntryNm>ACA (Affordable Care Act) Business Header Detail Type</DictionaryEntryNm>
+					<MajorVersionNum>1</MajorVersionNum>
+					<MinorVersionNum>0</MinorVersionNum>
+					<VersionEffectiveBeginDt>2012-10-25</VersionEffectiveBeginDt>
+					<VersionDescriptionTxt>Initial version</VersionDescriptionTxt>
+					<DescriptionTxt>Message payload for the SOA service that obtains information for the ACA business header detail</DescriptionTxt>
+				</Component>
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
